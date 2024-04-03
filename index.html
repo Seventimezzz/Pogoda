@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
     <title>Pogoda</title>
-    <link rel="stylesheet" href="./style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="container">
-        <div class="search-box">
-            <i class='bx bxs-map'></i>
-            <input type="text" placeholder="Укажите город">
-            <button class="bx bx-search"></button>
-        </div>
-        <div class="weather-box">
-            <div class="box">
-                <div class="info-weather">
-                    <div class="weather">
-                        <img class="weather-img" src="photo/cloud.png">
-                        <p class="temperature">0<span>°C</span></p>
-                        <p class="description"> Moscow</p>
-                    </div>
-                </div>
+        <!-- Тут было обращению к элментам на прямую так делать не надо лучше создать ему отдельный -->
+      <div class="search">
+        <i class="search-loop bx bxs-map"></i>
+        <input class="search-input" type="text" placeholder="Укажите город" />
+        <button class="search-btn bx bx-search"></button>
+      </div>
+      
+      <!-- тут были вложеные элементы, так делать не желательно в одном элементе должно быть хотя бы 2 дочерних элемента и уних даже стилей не было почему то
+              <div>
+                <div></div>
             </div>
-        </div>
-        
-        <div class="wether-details">
-            <div class="humidity">
-                <i class='bx bx-water'></i>
-                <div class="text">
-                    <div class="info-humidity">
-                        <span>0%</span>
-                    </div>
-                <p>Влажность</p>
-                    </div>
-                </div>
-            
+    -->
+      <div class="weather-box">
+        <img class="weather-img" src="image/cloud.png" />
+        <p class="temperature">0<span>°C</span></p>
+        <p class="description">Moscow</p>
+      </div>
 
-            <div class="wind">
-                <i class='bx bx-wind' ></i>
-                <div class="text">
-                    <div class="info-wind">
-                        <span>0км/ч</span>
-                    </div>
-                <p>Ветер</p>
-                </div>
+      <div class="wether-details">
+        <div class="humidity">
+          <i class="bx bx-water"></i>
+          <div class="text">
+            <div class="info-humidity">
+              <span>0%</span>
             </div>
+            <p>Влажность</p>
+          </div>
         </div>
+
+        <div class="wind">
+          <i class="bx bx-wind"></i>
+          <div class="text">
+            <div class="info-wind">
+              <span>0км/ч</span>
+            </div>
+            <p>Ветер</p>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
-
+  </body>
+</html>

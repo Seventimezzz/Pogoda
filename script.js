@@ -1,31 +1,55 @@
 const APIKey = "4034e91d266b79661e349e9c380f4375"
 
-const apiUrl =`http://api.openweathermap.org/data/2.5/weather?units=metric&q=`
+const apiUrl = `http://api.openweathermap.org/data/2.5/weather?units=metric&q=`
 
-const searchInput = document.querySelector(".search-box input");
-const searchButton = document.querySelector(".search-box button");
+const container = document.querySelector('.container')
+
+const searchInput = container.querySelector(".search-input");
+const searchButton = container.querySelector(".search-btn");
+
+const getWeather = async (description) => {
+    return new Promise((resolve, reject) => {
+        fetch(apiUrl + description + `&appid=${APIKey}`)
+            .then(response => {
+                if (response.cod === '404') {
+                    throw new Error('ОшибкаЖ: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => resolve(data))
+            .catch(error => reject('Не получилось получить погоду в текущем регионе'));
+    });
+}
 
 async function checkWeather(description) {
-    const response = await fetch(apiUrl + description + `&appid=${APIKey}`) ;
-    const data = await response.json();
-    const image = document.querySelector('.weather-img')
-    console.log(image, 'image')
+    const data = await getWeather(description)
 
-    document.querySelector('.description').innerHTML = data.name;
-    document.querySelector('.temperature').innerHTML = Math.round(data.main.temp) + "°C" ;
-    document.querySelector('.info-humidity').innerHTML = (data.main.humidity) + "%";
-    document.querySelector('.info-wind').innerHTML = (data.wind.speed) + "Км/ч";
+    const image = container.querySelector('.weather-img')
 
-    if (data.weather[0].main == 'Clear'){
-        image.src = './photo/clear.png'
-    } else if (data.weather[0].main == 'Rain'){
-        image.src = './photo/rain.png'
-    }else if (data.weather[0].main == 'Mist'){
-        image.src = './photo/mist.png'
-    }else if (data.weather[0].main == 'Snow'){
-        image.src = './photo/snow.png'
-    }else if (data.weather[0].main == 'Clouds'){
-        image.src = './photo/cloud.png'
+    container.querySelector('.description').innerHTML = data.name;
+    container.querySelector('.temperature').innerHTML = Math.round(data.main.temp) + "°C";
+    container.querySelector('.info-humidity').innerHTML = (data.main.humidity) + "%";
+    container.querySelector('.info-wind').innerHTML = (data.wind.speed) + "Км/ч";
+
+    switch (data.weather[0].main) {
+        case 'Clear':
+            image.src = './image/clear.png'
+            break;
+        case 'Rain':
+            image.src = './image/rain.png'
+            break;
+        case 'Mist':
+            image.src = './image/mist.png'
+            break;
+        case 'Snow':
+            image.src = './image/snow.png'
+            break;
+        case 'Clouds':
+            image.src = './image/cloud.png'
+            break;
+        default:
+            image.src = './image/clear.png'
+            break
     }
 }
 
